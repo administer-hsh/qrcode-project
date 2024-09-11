@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Vue QR Code Generator</title>
+        <script src="https://unpkg.com/vue@3.2.47/dist/vue.global.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+        <div>
+            <label for="qr-text">二维码二维码二维码！:</label>
+            <input v-model="qrcodeText" type="text" id="qr-text" placeholder="在这里填写内容嗨嗨嗨">
+        </div>
+        <div id="qrcode"></div>
+    </div>
+    <script>
+        Vue.createApp({
+            data(){
+                return{
+                    qrcode: null,
+                    qrcodeText: "嘉益我要对你开大咯！"
+                };
+                },
+                watch:{
+                    qrcodeText(newText){
+                        this.generateQRCode(newText);
+                    }
+                },
+                mounted(){
+                this.generateQRCode(this.qrcodeText);
+            },
+            methods:{
+                generateQRCode(text){
+                    // if(this.qrcode){
+                    //     this.qrcode.clear();
+                    // }
+
+                    const qrcodeContainer = document.getElementById("qrcode");
+                    qrcodeContainer.innerHTML = "";
+
+                    this.qrcode = new QRCode(document.getElementById("qrcode"),{
+                        text: text,
+                        width: 256,
+                        height: 256,
+                        colorDark: "#FF69B4",
+                        colorLight: "#00FFFF",
+                       
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+                }
+            }
+            
+            
+        }).mount('#app');
+    </script>
+    </body>
+</html>
+
+
+
